@@ -1,6 +1,6 @@
 language: java
 java:
-  - 8
+  - 7
 script:
   - chmod +x *.sh
   - ./build.sh
