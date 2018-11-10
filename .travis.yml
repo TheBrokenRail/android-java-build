@@ -1,6 +1,5 @@
 language: java
-java:
-  - 6
+jdk: openjdk7
 script:
   - chmod +x *.sh
   - ./build.sh
