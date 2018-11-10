@@ -1,0 +1,7 @@
+language: java
+java:
+  - 8
+script:
+  - chmod +x *.sh
+  - ./build.sh
+  - ./deploy.sh
