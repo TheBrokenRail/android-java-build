@@ -23,6 +23,6 @@ cd src
 javac -source 7 -target 7 ./**/*.java
 cd ../
 jar -cfm dx.jar etc/manifest.txt src/**/*.class
-cp dx.jar ../langtools/build/bootstrap/lib
+cp dx.jar ../../langtools/build/bootstrap/lib/dx.jar
 
-cd ../
+cd ../../
