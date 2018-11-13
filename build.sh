@@ -11,3 +11,18 @@ for i in $(grep -r -l 'System.exit' src/share/classes); do
 done
 
 ant -buildfile make/build.xml -Dboot.java.home=${JAVA_HOME}
+
+cd ../
+
+git clone --depth=1 https://android.googlesource.com/platform/dalvik
+cd dalvik/dx
+
+shopt -s globstar
+
+cd src
+javac -source 7 -target 7 ./**/*.java
+cd ../
+jar -cfm dx.jar etc/manifest.txt src/**/*.class
+cp dx.jar ../langtools/build/bootstrap/lib
+
+cd ../
