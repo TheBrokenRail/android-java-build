@@ -5,8 +5,9 @@ set -e
 hg clone http://hg.openjdk.java.net/jdk8/jdk8/langtools langtools
 cd langtools
 
+cp -r ../com src/share/classes
 for i in $(grep -r -l 'System.exit' src/share/classes); do
-  sed -i -e 's/System.exit/String.valueOf/g' $i
+  sed -i -e 's/System.exit/com.thebrokenrail.patch.SystemExit.exit/g' $i
   echo "Patched: $i"
 done
 
@@ -19,10 +20,15 @@ cd dalvik/dx
 
 shopt -s globstar
 
-cd src
+cp -r ../com src
+for i in $(grep -r -l 'System.exit' src); do
+  sed -i -e 's/System.exit/com.thebrokenrail.patch.SystemExit.exit/g' $i
+  echo "Patched: $i"
+done
 javac -source 7 -target 7 ./**/*.java
-cd ../
+cd src
 jar -cfm dx.jar etc/manifest.txt src/**/*.class
+cd ../
 cp dx.jar ../../langtools/build/bootstrap/lib/dx.jar
 
 cd ../../
