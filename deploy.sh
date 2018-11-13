@@ -9,4 +9,4 @@ cd langtools/build/bootstrap
 git init
 git add .
 git commit --quiet -m "Deploy to Github Pages"
-git push --force "https://${GITHUB_TOKEN}@github.com/TheBrokenRail/langtools-build.git" master:gh-pages
+git push --force "https://${GITHUB_TOKEN}@github.com/TheBrokenRail/android-java-build.git" master:gh-pages
