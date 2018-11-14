@@ -14,20 +14,19 @@ ant -buildfile make/build.xml -Dboot.java.home=${JAVA_HOME} build-bootstrap-tool
 
 cd ../
 
-git clone --depth=1 https://android.googlesource.com/platform/dalvik
-cd dalvik/dx
+git clone --depth=1 https://github.com/JakeWharton/dalvik-dx.git
+cd dalvik-dx
+git submodule init
+git submodule update
 
 shopt -s globstar
 
-for i in $(grep -r -l 'System.exit' src); do
+for i in $(grep -r -l 'System.exit' platform_dalvik/dx/src); do
   sed -i -e 's/System.exit/if (true) { throw new SecurityException(); }; String.valueOf/g' $i
   echo "Patched: $i"
 done
 
-javac src/**/*.java
-cd src
-jar -cfm ../dx.jar ../etc/manifest.txt ./**/*.class
-cd ../
-cp dx.jar ../../langtools/build/bootstrap/lib/dx.jar
+mvn install -DskipTests=true -Dmaven.javadoc.skip=true
+cp target/*.jar ../langtools/build/bootstrap/lib
 
-cd ../../
+cd ../
