@@ -10,7 +10,7 @@ for i in $(grep -r -l 'System.exit(' src/share/classes); do
   echo "Patched: $i"
 done
 
-ant -buildfile make/build.xml -Dboot.java.home=${JAVA_HOME}
+ant -buildfile make/build.xml -Dboot.java.home=${JAVA_HOME} build-bootstrap-tools
 
 cd ../
 
