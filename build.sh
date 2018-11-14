@@ -20,14 +20,14 @@ cd dalvik/dx
 shopt -s globstar
 
 
-for i in $(grep -r -l 'System.exit(' src/share/classes); do
+for i in $(grep -r -l 'System.exit(' src); do
   sed -i -e 's/System.exit(/if (true) throw new SecurityException("Exit Code: " + /g' $i
   echo "Patched: $i"
 done
 
-javac -source 7 -target 7 ./**/*.java
+javac -source 7 -target 7 src/**/*.java
 cd src
-jar -cfm dx.jar etc/manifest.txt src/**/*.class
+jar -cfm ../dx.jar etc/manifest.txt ./**/*.class
 cd ../
 cp dx.jar ../../langtools/build/bootstrap/lib/dx.jar
 
