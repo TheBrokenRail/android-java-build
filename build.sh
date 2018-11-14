@@ -24,9 +24,9 @@ for i in $(grep -r -l 'System.exit' src); do
   echo "Patched: $i"
 done
 
-javac -source 7 -target 7 src/**/*.java
+javac -source 8 -target 8 src/**/*.java
 cd src
-jar -cfm ../dx.jar etc/manifest.txt ./**/*.class
+jar -cfm ../dx.jar ../etc/manifest.txt ./**/*.class
 cd ../
 cp dx.jar ../../langtools/build/bootstrap/lib/dx.jar
 
