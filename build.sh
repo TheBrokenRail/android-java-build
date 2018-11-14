@@ -19,14 +19,18 @@ cd dalvik/dx
 
 shopt -s globstar
 
-for i in $(grep -r -l 'System.exit' src); do
+mkdir -p src/patch/com/android
+mv src/com/android/* src/patch/com/android
+
+for i in src/**/*.java; do
   sed -i -e 's/System.exit/if (true) { throw new SecurityException(); }; String.valueOf/g' $i
+  sed -i -e 's/com.android/patch.com.android/g' $i
   echo "Patched: $i"
 done
 
 javac src/**/*.java
 cd src
-jar -cfm ../dx.jar ../etc/manifest.txt ./**/*.class
+jar -cf ../dx.jar ./**/*.class
 cd ../
 cp dx.jar ../../langtools/build/bootstrap/lib/dx.jar
 
