@@ -19,7 +19,7 @@ cd dalvik/dx
 
 shopt -s globstar
 
-for i in $(grep -r -l 'System.exit' src/share/classes); do
+for i in $(grep -r -l 'System.exit' src); do
   sed -i -e 's/System.exit/if (true) { throw new SecurityException(); }; String.valueOf/g' $i
   echo "Patched: $i"
 done
