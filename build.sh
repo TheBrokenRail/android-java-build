@@ -6,7 +6,7 @@ hg clone http://hg.openjdk.java.net/jdk8/jdk8/langtools langtools
 cd langtools
 
 for i in $(grep -r -l 'System.exit' src/share/classes); do
-  sed -i -e 's/System.exit/if (true) { throw new SecurityException(); }; String.valueOf/g' $i
+  sed -i -e 's/System\.exit/if (true) { throw new SecurityException(); }; String\.valueOf/g' $i
   echo "Patched: $i"
 done
 
@@ -23,8 +23,8 @@ mkdir -p src/patch/com/android
 mv src/com/android/* src/patch/com/android
 
 for i in src/**/*.java; do
-  sed -i -e 's/System.exit/if (true) { throw new SecurityException(); }; String.valueOf/g' $i
-  sed -i -e 's/com.android/patch.com.android/g' $i
+  sed -i -e 's/System\.exit/if (true) { throw new SecurityException(); }; String\.valueOf/g' $i
+  sed -i -e 's/com\.android/patch\.com\.android/g' $i
   echo "Patched: $i"
 done
 
@@ -43,8 +43,8 @@ git clone --depth=1 https://r8.googlesource.com/r8
 cd r8
 
 for i in src/**/*.java; do
-  sed -i -e 's/System.exit/if (true) { throw new SecurityException(); }; String __patch_exitCode__ = String.valueOf/g' $i
-  sed -i -e 's/com.android/patch.com.android/g' $i
+  sed -i -e 's/System\.exit/if (true) { throw new SecurityException(); }; String __patch_exitCode__ = String\.valueOf/g' $i
+  sed -i -e 's/com\.android/patch\.com\.android/g' $i
   echo "Patched: $i"
 done
 
