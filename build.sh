@@ -35,3 +35,18 @@ cd ../
 cp dx.jar ../../langtools/build/bootstrap/lib/dx.jar
 
 cd ../../
+
+git clone --depth=1 https://r8.googlesource.com/r8
+cd r8
+
+for i in src/**/*.java; do
+  sed -i -e 's/System.exit/if (true) { throw new SecurityException(); }; String.valueOf/g' $i
+  sed -i -e 's/com.android/patch.com.android/g' $i
+  echo "Patched: $i"
+done
+
+tools/gradle.py d8 r8
+
+cp build/libs/*.jar ../langtools/build/bootstrap/lib
+
+cd ../
