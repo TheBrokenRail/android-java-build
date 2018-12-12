@@ -43,7 +43,7 @@ git clone --depth=1 https://r8.googlesource.com/r8
 cd r8
 
 for i in src/**/*.java; do
-  sed -i -e 's/System.exit/if (true) { throw new SecurityException(); }; String.valueOf/g' $i
+  sed -i -e 's/System.exit/if (true) { throw new SecurityException(); }; String __patch_exitCode__ = String.valueOf/g' $i
   sed -i -e 's/com.android/patch.com.android/g' $i
   echo "Patched: $i"
 done
