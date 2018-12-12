@@ -36,6 +36,9 @@ cp dx.jar ../../langtools/build/bootstrap/lib/dx.jar
 
 cd ../../
 
+git clone --depth=1 https://chromium.googlesource.com/chromium/tools/depot_tools.git
+PATH=$(pwd)/depot_tools:${PATH}
+
 git clone --depth=1 https://r8.googlesource.com/r8
 cd r8
 
