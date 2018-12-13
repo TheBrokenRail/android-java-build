@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -e
 
 hg clone http://hg.openjdk.java.net/jdk8/jdk8/langtools langtools
 cd langtools
@@ -42,7 +42,7 @@ PATH=$(pwd)/depot_tools:${PATH}
 git clone --depth=1 https://r8.googlesource.com/r8 -b 1.3.44
 cd r8
 
-patch -p1 ../d8.patch
+patch -p1 < ../d8.patch
 
 for i in src/**/*.java; do
   sed -i -e 's/System\.exit/if (true) { throw new SecurityException(); }; String __patch_exitCode__ = String\.valueOf/g' $i
