@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 hg clone http://hg.openjdk.java.net/jdk8/jdk8/langtools langtools
 cd langtools
