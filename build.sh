@@ -7,7 +7,6 @@ cd langtools
 
 for i in $(grep -r -l 'System.exit' src/share/classes); do
   sed -i -e 's/System\.exit/if (true) { throw new SecurityException(); }; String\.valueOf/g' $i
-  echo "Patched: $i"
 done
 
 ant -buildfile make/build.xml -Dboot.java.home=${JAVA_HOME} build-bootstrap-tools
@@ -25,7 +24,6 @@ mv src/com/android/* src/patch/com/android
 for i in src/**/*.java; do
   sed -i -e 's/System\.exit/if (true) { throw new SecurityException(); }; String\.valueOf/g' $i
   sed -i -e 's/com\.android/patch\.com\.android/g' $i
-  echo "Patched: $i"
 done
 
 javac src/**/*.java
@@ -48,7 +46,6 @@ for i in src/**/*.java; do
   sed -i -e 's/System\.exit/if (true) { throw new SecurityException(); }; String __patch_exitCode__ = String\.valueOf/g' $i
   sed -i -e 's/com\.android/patch\.com\.android/g' $i
   sed -i -e 's/com\/android/patch\/com\/android/g' $i
-  echo "Patched: $i"
 done
 
 tools/gradle.py d8 r8
