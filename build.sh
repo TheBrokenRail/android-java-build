@@ -37,7 +37,7 @@ cd ../../
 git clone --depth=1 https://chromium.googlesource.com/chromium/tools/depot_tools.git
 PATH=$(pwd)/depot_tools:${PATH}
 
-git clone --depth=1 https://r8.googlesource.com/r8 -b 1.3.44
+git clone --depth=1 https://r8.googlesource.com/r8 -b 1.3.49
 cd r8
 
 patch -p1 < ../d8.patch
