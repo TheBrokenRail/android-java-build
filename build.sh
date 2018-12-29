@@ -42,7 +42,10 @@ cd r8
 
 patch -p1 < ../d8.patch
 
-for i in src/**/*.java; do
+mkdir -p src/main/java/patch/com/android
+mv src/main/java/com/android/* src/main/java/patch/com/android
+
+for i in src/main/java/**/*.java; do
   sed -i -e 's/System\.exit/if (true) { throw new SecurityException(); }; String __patch_exitCode__ = String\.valueOf/g' $i
   sed -i -e 's/com\.android/patch\.com\.android/g' $i
   sed -i -e 's/com\/android/patch\/com\/android/g' $i
