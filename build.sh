@@ -34,25 +34,4 @@ cp dx.jar ../../langtools/build/bootstrap/lib/dx.jar
 
 cd ../../
 
-git clone --depth=1 https://chromium.googlesource.com/chromium/tools/depot_tools.git
-PATH=$(pwd)/depot_tools:${PATH}
-
-git clone --depth=1 https://r8.googlesource.com/r8 -b 1.3.49
-cd r8
-
-patch -p1 < ../d8.patch
-
-mkdir -p src/main/java/patch/com/android
-mv src/main/java/com/android/* src/main/java/patch/com/android
-
-for i in src/main/java/**/*.java; do
-  sed -i -e 's/System\.exit/if (true) { throw new SecurityException(); }; String __patch_exitCode__ = String\.valueOf/g' $i
-  sed -i -e 's/com\.android/patch\.com\.android/g' $i
-  sed -i -e 's/com\/android/patch\/com\/android/g' $i
-done
-
-tools/gradle.py d8 r8
-
-cp build/libs/*.jar ../langtools/build/bootstrap/lib
-
 cd ../
